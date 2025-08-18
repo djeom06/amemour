@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projet - Mon Site</title>
+  <title>Prendre Rendez-vous - Mon Site</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -26,18 +26,27 @@
       padding: 20px 0;
       margin-top: 50px;
     }
+    input, button {
+      font-size: 1.1em;
+      padding: 10px;
+      margin: 10px 0;
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>Page Projet</h1>
+  <h1>Prendre Rendez-vous</h1>
 </header>
 
 <main>
-  <p>Bienvenue sur la page de mon projet.</p>
-  <p><a href="index.html">Retour à l’accueil</a></p>
-  <p><a href="rendezvous.html">Prendre rendez-vous</a></p>
+  <p>Sélectionnez une date pour votre rendez-vous :</p>
+  <form>
+    <input type="date" name="date" required>
+    <br>
+    <button type="submit">Valider</button>
+  </form>
+  <p><a href="projet.html">Retour à la page projet</a></p>
 </main>
 
 <footer>
