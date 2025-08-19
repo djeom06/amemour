@@ -1,54 +1,460 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil - Mon Site</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oracles & Lumière — Boutique, Rendez‑vous & Créations</title>
+  <meta name="description" content="Vente de jeux d'oracle, pendentifs d'ange, pierres de protection. Réservez un tirage de cartes et commandez votre carnet de lumière personnalisé." />
+  <meta name="theme-color" content="#6b5b95" />
+  <link rel="icon" href="/favicon.png" />
+  <meta property="og:title" content="Oracles & Lumière" />
+  <meta property="og:description" content="Boutique ésotérique & prises de rendez-vous pour tirages." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.jpg" />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f5f5f5;
-      color: #333;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg:#0f0e13;         /* bleu nuit profond */
+      --card:#151320;       /* carte */
+      --muted:#c7c2d9;      /* texte secondaire */
+      --text:#f6f5ff;       /* texte principal */
+      --brand:#a78bfa;      /* violet lumineux */
+      --brand-2:#ffd56b;    /* doré doux */
+      --accent:#56d3c2;     /* aqua */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
     }
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 30px 0;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(167,139,250,.25), transparent),
+                  radial-gradient(900px 400px at 10% 10%, rgba(86,211,194,.12), transparent),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
     }
-    main {
-      padding: 50px 20px;
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(8px);
+      background: rgba(15,14,19,.6); border-bottom:1px solid rgba(255,255,255,.08);
     }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.5px}
+    .brand .logo{width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background: linear-gradient(to right, #999999, white); /* argent foncé → blanc */ box-shadow: var(--shadow)}
+    .brand small{color:var(--muted); font-weight:500}
+    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+    nav a{padding:8px 12px; border-radius:999px; border:1px solid transparent}
+    nav a:hover{border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.04)}
+    
+    /* Bandeau défilant */
+    .marquee{
+      overflow: hidden;
+      white-space: nowrap;
+      background: linear-gradient(to right, #999999, white); /* argent foncé → blanc */
+      color: #120e1a;
+      font-weight: 600;
+      padding: 10px 0;
+      position: relative;
     }
-    p {
-      font-size: 1.2em;
+    .marquee a{
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 12s linear infinite;
+      text-decoration: none;
+      color: inherit;
     }
-    footer {
-      background-color: #ddd;
-      padding: 20px 0;
-      margin-top: 50px;
+    .marquee:hover a{
+      animation-play-state: paused;
     }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Hero */
+    .hero{padding:72px 0 32px}
+    .hero .wrap{display:grid; grid-template-columns: 1.2fr .8fr; gap:28px; align-items:center}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:12px;
+      border:1px solid rgba(255,255,255,.12); color:var(--muted)}
+    h1{font-size: clamp(28px, 3.2vw, 44px); line-height:1.15; margin:12px 0 10px}
+    .lead{color:var(--muted); font-size: clamp(14px, 1.8vw, 18px)}
+    .cta{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap}
+    .btn{padding:12px 18px; border-radius:12px; border:1px solid rgba(255,255,255,.12); font-weight:600; display:inline-flex; align-items:center; gap:10px}
+    .btn.primary{background: linear-gradient(to right, #999999, white); /* argent foncé → blanc */, var(--brand-2)); color:#120e1a; border: none}
+    .btn.ghost:hover{background: rgba(255,255,255,.06)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius); box-shadow: var(--shadow)}
+          .card.imagetest {
+      width: 100%;          /* réduit la largeur à 50% du parent */
+      height: auto;        /* ajuste la hauteur automatiquement pour garder le ratio */
+      object-fit: cover;   /* remplissage du cadre sans déformer */
+      border-radius: 12px; /* optionnel, si tu veux les coins arrondis */
+    }
+    .card.video {
+      width: 100%;          /* réduit la largeur à 50% du parent */
+      height: auto;        /* ajuste la hauteur automatiquement pour garder le ratio */
+      object-fit: cover;   /* remplissage du cadre sans déformer */
+      border-radius: 12px; /* optionnel, si tu veux les coins arrondis */
+    }
+    .hero-media{aspect-ratio: 4/3; overflow:hidden; position:relative}
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;   /* affiche toute l'image dans le cadre */
+      object-position: center;
+      display: block;
+    }
+    .glow{position:absolute; inset:0; background: radial-gradient(600px 200px at 70% 10%, rgba(255,213,107,.2), transparent);
+      pointer-events:none}
+
+    /* Sections */
+    section{padding:48px 0}
+    .section-title{font-size: clamp(22px, 2.4vw, 32px); margin:0 0 20px}
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns: repeat(3, 1fr)}
+    .grid.cols-2{grid-template-columns: repeat(2, 1fr)}
+    @media (max-width: 900px){
+      .hero .wrap{grid-template-columns: 1fr}
+      .grid.cols-3{grid-template-columns: 1fr}
+      .grid.cols-2{grid-template-columns: 1fr}
+    }
+
+    /* Product cards */
+    .product{padding:14px}
+    //.product .img{border-radius:12px; overflow:hidden; aspect-ratio: 4/3; background:#0e0c15; display:grid; place-items:center}
+    .product .img {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #0e0c15;
+    }
+    
+    .product .img img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;   /* ajuste l'image pour tout montrer dans le cadre */
+      object-position: center; /* centre le cadrage */
+      opacity: 0;
+      animation: fade 4s infinite;
+    }
+    
+    .product .img .img-1 {
+      animation-delay: 0s; /* commence en premier */
+    }
+    
+    .product .img .img-2 {
+      animation-delay: 2s; /* commence 2 sec plus tard */
+    }
+    
+    @keyframes fade {
+      0% { opacity: 1; }
+      45% { opacity: 1; }
+      50% { opacity: 0; }
+      95% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .product h3{margin:10px 0 6px; font-size:18px}
+    .price{font-weight:700}
+    .chip{display:inline-flex; gap:6px; align-items:center; font-size:12px; padding:4px 8px; border-radius:10px; color:#120e1a; background:linear-gradient(135deg, var(--brand-2), var(--accent))}
+
+    /* Cards */
+    .feature{padding:18px}
+    .feature p{color:var(--muted); margin:8px 0 0}
+
+    /* Booking & forms */
+    .panel{padding:18px}
+    .panel label{display:block; margin:10px 0 6px}
+    .panel input, .panel select, .panel textarea{
+      width:100%; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.2); color:var(--text)
+    }
+    .panel textarea{min-height:120px}
+    .note{color:var(--muted); font-size:13px}
+
+    /* Footer */
+    footer{padding:32px 0 48px; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
+    .footer-grid{display:grid; gap:16px; grid-template-columns: 1.2fr 1fr 1fr}
+    .social a{margin-right:10px; display:inline-flex; align-items:center; gap:6px}
+    @media (max-width: 900px){.footer-grid{grid-template-columns:1fr}}
+
+    /* Utility */
+    .hidden{display:none}
+    .sr-only{position:absolute;width:1px;height:1px;margin:-1px;border:0;padding:0;white-space:nowrap;clip-path:inset(50%);clip:rect(0 0 0 0);overflow:hidden}
   </style>
 </head>
 <body>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav" aria-label="Navigation principale">
+      <a class="brand" href="#top">
+        <span class="logo" aria-hidden="true">🔮</span>
+        <span>Oracles & Lumière<br><small>Cartomancie • Boutique • Créations</small></span>
+      </a>
+      <nav aria-label="Liens">
+        <ul>
+          <li><a href="#boutique">Boutique</a></li>
+          <li><a href="#rendezvous">Rendez‑vous</a></li>
+          <li><a href="#carnets">Carnets de lumière</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Bandeau défilant -->
+  <div class="marquee">
+    <a href="#boutique">✨ Nouveau jeu d’oracle disponible ✨</a>
+  </div>
 
-<header>
-  <h1>Bienvenue sur mon site !</h1>
-</header>
+  <!-- Hero -->
+  <main id="top" class="hero">
+    <div class="container wrap">
+      <div>
+        <span class="badge" aria-label="Mise en avant"><span aria-hidden="true">✨</span> Bienvenue dans votre espace lumineux</span>
+        <h1>Jeux d’oracle, tirages et objets de protection pour éclairer votre chemin</h1>
+        <p class="lead">Réservez un tirage de cartes, commandez un carnet de lumière personnalisé, ou découvrez nos pendentifs d’ange et pierres de protection soigneusement sélectionnés.</p>
+        <div class="cta">
+          <a class="btn primary" href="#rendezvous">Prendre rendez‑vous</a>
+          <a class="btn ghost" href="#boutique">Voir la boutique</a>
+        </div>
+      </div>
+      <div class="card hero-media" aria-hidden="true">
+        <div class="glow"></div>
+        <img src="images/avatar.jpg" alt="avatar amemour" />
+      </div>
+    </div>
+  </main>
 
-<main>
-  <p>Ceci est ma page d’accueil.</p>
-  <p>Tu peux modifier ce texte pour présenter ton <a href="projet.html">projet</a>.</p>
-</main>
+  <!-- Boutique -->
+  <section id="boutique" aria-labelledby="t-boutique">
+    <div class="container">
+      <h2 class="section-title" id="t-boutique">Boutique</h2>
+      <div class="grid cols-3">
+        <!-- Jeux d'oracle -->
+        <article class="product card" aria-labelledby="p-oracle">
+          <div class="img">
+            <img class="img-1" src="images/boite_recto.jpg" alt="Jeu d'oracle - face 1" />
+            <img class="img-2" src="images/boite_verso.jpg" alt="Jeu d'oracle - face 2" />
+          </div>
+          <h3 id="p-oracle">Jeux d’oracle</h3>
+          <p class="note">Guidance quotidienne et tirages thématiques.</p>
+          <p class="price">à partir de 24,90 €</p>
+          <div class="cta"><a class="btn" href="#contact">Demander une recommandation</a></div>
+        </article>
+        <!-- Pendentifs d'ange -->
+        <article class="product card" aria-labelledby="p-pendentif">
+          <div class="img"><img src="https://images.unsplash.com/photo-1599643477860-1b296a9dc35b?q=80&w=1200&auto=format&fit=crop" alt="Pendentif d'ange" /></div>
+          <h3 id="p-pendentif">Pendentifs d’ange</h3>
+          <p class="note">Talismans de protection et d’élévation vibratoire.</p>
+          <p class="price">à partir de 19,90 €</p>
+          <div class="cta"><a class="btn" href="#contact">Voir les modèles</a></div>
+        </article>
+        <!-- Pierres de protection -->
+        <article class="product card" aria-labelledby="p-pierres">
+          <div class="img"><img src="https://images.unsplash.com/photo-1611273669427-c34c5773349b?q=80&w=1200&auto=format&fit=crop" alt="Pierres de protection" /></div>
+          <h3 id="p-pierres">Pierres de protection</h3>
+          <p class="note">Obsidienne, tourmaline, labradorite… qualité sélectionnée.</p>
+          <p class="price">à partir de 6,90 €</p>
+          <div class="cta"><a class="btn" href="#contact">Demander un lot sur‑mesure</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  <p>© 2025 MonSite. Tous droits réservés.</p>
-</footer>
+  <!-- Rendez-vous / Booking -->
+  <section id="rendezvous" aria-labelledby="t-rdv">
+    <div class="container">
+      <h2 class="section-title" id="t-rdv">Prendre rendez‑vous pour un tirage de cartes</h2>
+      <div class="grid cols-2">
+        <div class="card panel">
+          <p class="note">Choisissez votre créneau ci‑dessous. Intégration prête pour Calendly (ou autre). Remplacez l’URL par la vôtre.</p>
+          <!-- Calendly inline widget begin -->
+          <div class="card" style="overflow:hidden; position:relative; padding-top: 56.25%">
+            <iframe title="Calendrier de réservation"
+              src="https://calendly.com/your-calendly-slug/30min?hide_gdpr_banner=1"
+              style="border:0; position:absolute; inset:0; width:100%; height:100%" allowtransparency="true"></iframe>
+          </div>
+          <!-- Calendly inline widget end -->
+        </div>
+        <div class="card panel">
+          <h3>Formule rapide — 30 min</h3>
+          <p class="note">Guidance ciblée (amour, travail, choix de vie). Réalisable en visio ou en audio.</p>
+          <ul>
+            <li>Préparation énergétique et tirage intuitif</li>
+            <li>Photo du tirage + synthèse envoyées par email</li>
+            <li>Option : enregistrement audio</li>
+          </ul>
+          <div class="cta"><a class="btn primary" href="#contact">Poser une question</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Carnets de lumière -->
+  <section id="carnets" aria-labelledby="t-carnets">
+    <div class="container">
+      <h2 class="section-title" id="t-carnets">Création de carnet de lumière</h2>
+      <div class="grid cols-2">
+        <div class="card panel">
+          <h3>Commande personnalisée</h3>
+          <form action="https://formspree.io/f/your-form-id" method="POST">
+            <label for="nom">Votre nom</label>
+            <input id="nom" name="nom" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+
+            <label for="format">Format souhaité</label>
+            <select id="format" name="format" required>
+              <option>Petit (A6)</option>
+              <option>Moyen (A5)</option>
+              <option>Grand (A4)</option>
+            </select>
+
+            <label for="themes">Intentions / thèmes</label>
+            <textarea id="themes" name="themes" placeholder="ex : gratitude, protection, chakras…"></textarea>
+
+            <label for="delai">Délai idéal</label>
+            <input id="delai" name="delai" type="text" placeholder="ex : 2 semaines" />
+
+            <div class="cta"><button class="btn primary" type="submit">Demander un devis</button></div>
+            <p class="note">En envoyant ce formulaire, vous recevrez une proposition personnalisée par email.</p>
+          </form>
+        </div>
+        <div class="card panel">
+          <h3>À propos du carnet</h3>
+          <p>Chaque carnet est conçu comme un espace sacré : papier de qualité, reliure soignée, pages dédiées aux intentions, rituels et prises de conscience. Personnalisation possible : nom, mantra, couleur, symboles.</p>
+          <div class="grid cols-2" style="margin-top:10px">
+            <img class="card imagetest" src="images/avatar_carnetlumiere.jpg" alt="Détails de carnets" />
+            <video class="card video" autoplay muted loop playsinline>
+              <source src="videos/video_carnetlumiere.mp4" type="video/mp4">
+              Votre navigateur ne supporte pas la lecture de vidéos.
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À propos -->
+  <section id="apropos" aria-labelledby="t-apropos">
+    <div class="container">
+      <h2 class="section-title" id="t-apropos">À propos</h2>
+      <div class="grid cols-2">
+        <div class="card feature">
+          <div class="chip" aria-label="Expérience">10+ ans de pratique</div>
+          <h3>Une démarche bienveillante & éclairante</h3>
+          <p>Je vous accompagne à travers la cartomancie intuitive et la sélection d’outils vibratoires pour soutenir votre chemin intérieur.</p>
+        </div>
+        <div class="card feature">
+          <div class="chip" aria-label="Éthique">Éthique & confidentialité</div>
+          <h3>Votre espace en sécurité</h3>
+          <p>Les échanges restent confidentiels et ne remplacent pas un avis médical ou juridique. La guidance éclaire, vous restez souverain·e de vos choix.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" aria-labelledby="t-contact">
+    <div class="container">
+      <h2 class="section-title" id="t-contact">Contact</h2>
+      <div class="grid cols-2">
+        <div class="card panel">
+          <form action="https://formspree.io/f/your-form-id" method="POST">
+            <label for="nom2">Nom</label>
+            <input id="nom2" name="nom" required />
+
+            <label for="email2">Email</label>
+            <input id="email2" name="email" type="email" required />
+
+            <label for="sujet">Sujet</label>
+            <select id="sujet" name="sujet">
+              <option>Question boutique</option>
+              <option>Rendez‑vous tirage</option>
+              <option>Carnet de lumière</option>
+              <option>Autre</option>
+            </select>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <div class="cta"><button class="btn primary" type="submit">Envoyer</button></div>
+            <p class="note">Réponse sous 24–48h ouvrées.</p>
+          </form>
+        </div>
+        <div class="card panel">
+          <h3>Coordonnées</h3>
+          <p>Email : <a href="mailto:contact@oracles-lumiere.fr">contact@oracles-lumiere.fr</a><br>
+             Instagram : <a href="https://www.instagram.com/ame_mour" rel="noopener">@amemour</a></p>
+          <p class="note">Ajoutez ici votre adresse si vous avez un lieu d’accueil.</p>
+          <h3 style="margin-top:16px">FAQ rapide</h3>
+          <details class="card" style="padding:12px"><summary>Comment se déroule un tirage ?</summary><p>Après votre réservation, vous recevez un email de préparation. Le jour J, nous échangeons sur votre intention, puis je réalise un tirage guidé. Une synthèse vous est envoyée.</p></details>
+          <details class="card" style="padding:12px"><summary>Quels moyens de paiement ?</summary><p>Carte bancaire (Stripe), PayPal ou virement. En boutique physique : espèces.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand"><span class="logo" aria-hidden="true">🔮</span><span>Oracles & Lumière</span></div>
+        <p class="note">© <span id="year"></span> — Tous droits réservés.</p>
+      </div>
+      <div>
+        <strong>Navigation</strong>
+        <p><a href="#boutique">Boutique</a> • <a href="#rendezvous">Rendez‑vous</a> • <a href="#carnets">Carnets</a> • <a href="#contact">Contact</a></p>
+      </div>
+      <div>
+        <strong>Suivez‑nous</strong>
+        <p class="social"><a href="https://www.instagram.com/ame_mour" aria-label="Instagram">📸 Instagram</a> <a href="https://www.instagram.com/ame_mour" aria-label="TikTok">🎵 TikTok</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JSON‑LD basic (à personnaliser) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Oracles & Lumière",
+    "image": ["/og-image.jpg"],
+    "email": "contact@oracles-lumiere.fr",
+    "url": "https://oracles-lumiere.fr",
+    "sameAs": ["https://www.instagram.com/ame_mour"],
+    "priceRange": "€€",
+    "areaServed": "FR"
+  }
+  </script>
+
+  <script>
+    // Utilitaires simples
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Ancre active dans le menu
+    const links = Array.from(document.querySelectorAll('nav a'));
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const id = '#' + e.target.id;
+        const link = links.find(l => l.getAttribute('href') === id);
+        if(e.isIntersecting && link){
+          links.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          link.style.borderColor = 'rgba(255,255,255,.22)';
+        }
+      })
+    },{ rootMargin:'-50% 0px -45% 0px', threshold:0 });
+    sections.forEach(s => observer.observe(s));
+  </script>
 </body>
 </html>
